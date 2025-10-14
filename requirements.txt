@@ -4,6 +4,8 @@ Pillow
 opencv-python
 python-dotenv
 fastmcp
+pydantic
+typing
 
 # Notes:
 # - Installing pytesseract requires the Tesseract binary to be installed on the system
