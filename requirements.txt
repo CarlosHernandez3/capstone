@@ -1,4 +1,4 @@
-openai
+openai>=1.0.0
 pytesseract # maybe a different ocr
 Pillow
 opencv-python
@@ -6,7 +6,6 @@ python-dotenv
 fastmcp
 pydantic
 typing
-
 # Notes:
 # - Installing pytesseract requires the Tesseract binary to be installed on the system
 #   (e.g. on Windows: https://github.com/tesseract-ocr/tesseract). Ensure tesseract is on PATH.
