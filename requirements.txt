@@ -1,11 +1,32 @@
+# Core dependencies
 openai>=1.0.0
-pytesseract # maybe a different ocr
+pytesseract
 Pillow
 opencv-python
 python-dotenv
 fastmcp
 pydantic
-typing
-# Notes:
-# - Installing pytesseract requires the Tesseract binary to be installed on the system
-#   (e.g. on Windows: https://github.com/tesseract-ocr/tesseract). Ensure tesseract is on PATH.
+boto3
+
+# Common dependencies from your Conda list
+anyio==4.11.0
+attrs==25.4.0
+authlib==1.6.5
+certifi>=2025.10.5
+cffi>=2.0.0
+charset-normalizer==3.4.4
+click==8.3.0
+contourpy==1.3.3
+cryptography==46.0.2
+cycler==0.12.1
+debugpy==1.8.17
+decorator==5.2.1
+dnspython==2.8.0
+docstring-parser==0.17.0
+docutils==0.22.2
+email-validator==2.3.0
+exceptiongroup==1.3.0
+fastmcp==2.12.4
+fonttools==4.60.1
+gast==0.6.0
+google-pasta==0.2.
