@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run current file (venv)",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "python": "C:/Users/18vic/OneDrive/Desktop/capstone2/capstone/venv/Scripts/python.exe"
+    }
+  ]
+}
