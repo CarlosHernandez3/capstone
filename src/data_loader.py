@@ -3,16 +3,20 @@ import io
 import os
 import pickle
 import boto3
-
+from pathlib import Path
 from dotenv import load_dotenv
 
 # === Configuration ===
 load_dotenv()
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+DATA_DIR = PROJECT_ROOT / "data" 
+DATA_DIR.mkdir(parents=True, exist_ok=True)
+
 
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 BUCKET_NAME = os.getenv("BUCKET_NAME", "giggso-florida-loan-data-share")
-CACHE_PATH = os.getenv("CACHE_PATH", "data/document_groups.pkl")
+CACHE_PATH = DATA_DIR / "document_groups.pkl"
 
 # Global variable to store all document groups
 _all_document_groups = None
