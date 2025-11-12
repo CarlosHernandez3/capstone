@@ -145,7 +145,6 @@ env.bak/
 venv.bak/
 
 # Ignore the data folder
-data/*
 !data/.gitkeep
 
 # Spyder project settings
