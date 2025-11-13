@@ -208,3 +208,9 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Ignore environment files (secrets)
+.env
+.env.*
+.env.local
+*.env
