@@ -8,12 +8,7 @@ GROUND_TRUTH_PATH = Path(__file__).parent / "ground_truth.json"
 
 
 def load_ground_truth(path: Path = GROUND_TRUTH_PATH) -> dict:
-    """
-    Load the ground truth JSON file into a Python dictionary.
-
-    This is separated into its own function so it can be reused or
-    mocked in tests later.
-    """
+    
     with path.open("r", encoding="utf-8") as f:
         data = json.load(f)
     return data
@@ -89,3 +84,4 @@ if __name__ == "__main__":
     # Test the agent wrapper
     wrapper_result = cross_validate_document_tool(test_applicant, test_doc)
     print("Wrapper output:", wrapper_result)
+
