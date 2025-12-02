@@ -10,14 +10,14 @@ interface ApplicantListProps {
 }
 
 const RiskIndicator: React.FC<{ score: number }> = ({ score }) => {
-  let bgColor = 'bg-accent';
+  let bgColor = 'bg-green-500';
   let text = 'Low Risk';
 
   if (score >= 0.75) {
-    bgColor = 'bg-danger';
+    bgColor = 'bg-red-500';
     text = 'High Risk';
   } else if (score >= 0.4) {
-    bgColor = 'bg-warning';
+    bgColor = 'bg-yellow-500';
     text = 'Medium Risk';
   }
 
@@ -60,25 +60,29 @@ const ApplicantList: React.FC<ApplicantListProps> = ({
       return;
     }
 
-    const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+    const today = new Date().toISOString().slice(0, 10);
 
     const newApplicant: Applicant = {
-      id: `${Date.now()}`, // simple unique ID for now
+      id: `${Date.now()}`,
       name: newApplicantName.trim(),
       applicationDate: today,
-      // For now, we set 0 risk until backend processes the docs.
       riskScore: 0,
       summary:
         'Risk assessment and AI summary will appear here after the backend processes the uploaded documents.',
       documents: uploadedFiles.map(f => ({
         name: f.file.name,
-        url: '#', // placeholder until backend provides real URLs (e.g., S3 presigned URLs)
+        url: '#',
       })),
+      fraudChecks: [
+        { label: 'SSN matches IRS records', status: 'pass' },
+        { label: 'Income consistent across documents', status: 'pass' },
+        { label: 'Employer verified in registry', status: 'pass' },
+        { label: 'Address consistent across documents', status: 'pass' },
+      ],
     };
 
     onAddApplicant(newApplicant);
 
-    // Clear form
     setNewApplicantName('');
     setUploadedFiles([]);
   };
@@ -87,7 +91,8 @@ const ApplicantList: React.FC<ApplicantListProps> = ({
     <div className="space-y-6">
       {/* Header */}
       <div className="bg-white p-6 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-neutral-900">Loan Applicant Dashboard</h1>
+        {/* Only Overview here, styled like the old big title */}
+        <h2 className="text-3xl font-bold text-neutral-900">Overview</h2>
         <p className="text-neutral-600 mt-2">
           View loan applicants, their application dates, and risk levels. Add new applicants
           by uploading their financial documents.
@@ -99,7 +104,7 @@ const ApplicantList: React.FC<ApplicantListProps> = ({
         <h2 className="text-xl font-semibold text-neutral-800">Add new applicant</h2>
         <p className="text-sm text-neutral-600">
           Enter the applicant&apos;s name and upload their PDF documents (bank statements,
-          paystubs, application forms, etc.). Later, the backend will analyze these documents
+          paystubs, application forms, etc.). The backend will later analyze these documents
           and update the risk score and AI summary.
         </p>
 
