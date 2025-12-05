@@ -30,19 +30,31 @@ const DocumentViewer: React.FC<DocumentViewerProps> = ({ documents }) => {
             {isOpen && (
                  <div id="document-list" className="mt-4 pl-4 border-l-2 border-neutral-200">
                     <ul className="space-y-2">
-                        {documents.map((doc, index) => (
-                            <li key={index}>
-                                <a 
-                                    href={doc.url} 
-                                    target="_blank" 
-                                    rel="noopener noreferrer" 
-                                    className="flex items-center gap-3 p-2 rounded-md hover:bg-primary/10 transition-colors group"
-                                >
-                                    <FilePdfIcon className="h-6 w-6 text-danger/80" />
-                                    <span className="text-neutral-700 group-hover:text-primary-dark font-medium">{doc.name}</span>
-                                </a>
-                            </li>
-                        ))}
+                        {documents.map((doc, index) => {
+                            const confidencePercent = Math.round(doc.confidenceScore * 100);
+                            let confidenceColor = 'text-green-600';
+                            if (doc.confidenceScore < 0.5) confidenceColor = 'text-red-600';
+                            else if (doc.confidenceScore < 0.7) confidenceColor = 'text-yellow-600';
+                            
+                            return (
+                                <li key={index}>
+                                    <a 
+                                        href={doc.url} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer" 
+                                        className="flex items-center justify-between p-2 rounded-md hover:bg-primary/10 transition-colors group"
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            <FilePdfIcon className="h-6 w-6 text-danger/80" />
+                                            <span className="text-neutral-700 group-hover:text-primary-dark font-medium">{doc.name}</span>
+                                        </div>
+                                        <span className={`text-sm font-semibold ${confidenceColor}`}>
+                                            {confidencePercent}% authentic
+                                        </span>
+                                    </a>
+                                </li>
+                            );
+                        })}
                     </ul>
                  </div>
             )}

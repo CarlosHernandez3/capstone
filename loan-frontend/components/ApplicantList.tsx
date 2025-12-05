@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Applicant, DocumentFile } from '../types';
 import { ChevronRightIcon } from './Icons';
 import FileUpload from './FileUpload';
+import { createApplicant } from '../services/apiService';
 
 interface ApplicantListProps {
   applicants: Applicant[];
@@ -36,6 +37,8 @@ const ApplicantList: React.FC<ApplicantListProps> = ({
 }) => {
   const [newApplicantName, setNewApplicantName] = useState('');
   const [uploadedFiles, setUploadedFiles] = useState<DocumentFile[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleFilesChange = (files: File[]) => {
     const wrapped = files.map((file, index) => ({
@@ -49,7 +52,7 @@ const ApplicantList: React.FC<ApplicantListProps> = ({
     setUploadedFiles(prev => prev.filter(f => f.id !== id));
   };
 
-  const handleCreateApplicant = () => {
+  const handleCreateApplicant = async () => {
     if (!newApplicantName.trim()) {
       alert('Please enter the applicant name.');
       return;
@@ -60,31 +63,32 @@ const ApplicantList: React.FC<ApplicantListProps> = ({
       return;
     }
 
-    const today = new Date().toISOString().slice(0, 10);
+    setIsUploading(true);
+    setError(null);
 
-    const newApplicant: Applicant = {
-      id: `${Date.now()}`,
-      name: newApplicantName.trim(),
-      applicationDate: today,
-      riskScore: 0,
-      summary:
-        'Risk assessment and AI summary will appear here after the backend processes the uploaded documents.',
-      documents: uploadedFiles.map(f => ({
-        name: f.file.name,
-        url: '#',
-      })),
-      fraudChecks: [
-        { label: 'SSN matches IRS records', status: 'pass' },
-        { label: 'Income consistent across documents', status: 'pass' },
-        { label: 'Employer verified in registry', status: 'pass' },
-        { label: 'Address consistent across documents', status: 'pass' },
-      ],
-    };
+    try {
+      // Extract File objects from DocumentFile
+      const files = uploadedFiles.map(df => df.file);
+      
+      // Call API to upload to S3 and analyze
+      const newApplicant = await createApplicant(newApplicantName.trim(), files);
+      
+      // Add the new applicant to the list
+      onAddApplicant(newApplicant);
 
-    onAddApplicant(newApplicant);
-
-    setNewApplicantName('');
-    setUploadedFiles([]);
+      // Reset form
+      setNewApplicantName('');
+      setUploadedFiles([]);
+      
+      // Show success message
+      alert(`${newApplicant.name} added successfully!`);
+      
+    } catch (err) {
+      console.error('Error creating applicant:', err);
+      setError(err instanceof Error ? err.message : 'Failed to create applicant');
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   return (
@@ -104,9 +108,14 @@ const ApplicantList: React.FC<ApplicantListProps> = ({
         <h2 className="text-xl font-semibold text-neutral-800">Add new applicant</h2>
         <p className="text-sm text-neutral-600">
           Enter the applicant&apos;s name and upload their PDF documents (bank statements,
-          paystubs, application forms, etc.). The backend will later analyze these documents
-          and update the risk score and AI summary.
+          paystubs, application forms, etc.). Documents will be uploaded to S3 and sent to your analyzer.
         </p>
+
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md">
+            <p className="text-sm font-medium">Error: {error}</p>
+          </div>
+        )}
 
         <div className="flex flex-col gap-4 md:flex-row md:items-start">
           <div className="flex-1">
@@ -117,7 +126,8 @@ const ApplicantList: React.FC<ApplicantListProps> = ({
               type="text"
               value={newApplicantName}
               onChange={e => setNewApplicantName(e.target.value)}
-              className="w-full rounded-md border border-neutral-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              disabled={isUploading}
+              className="w-full rounded-md border border-neutral-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary disabled:bg-neutral-100 disabled:cursor-not-allowed"
               placeholder="e.g., Maria Rodriguez"
             />
           </div>
@@ -136,9 +146,36 @@ const ApplicantList: React.FC<ApplicantListProps> = ({
         <button
           type="button"
           onClick={handleCreateApplicant}
-          className="mt-2 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          disabled={isUploading}
+          className="mt-2 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:bg-neutral-400 disabled:cursor-not-allowed"
         >
-          Add to dashboard
+          {isUploading ? (
+            <>
+              <svg 
+                className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" 
+                xmlns="http://www.w3.org/2000/svg" 
+                fill="none" 
+                viewBox="0 0 24 24"
+              >
+                <circle 
+                  className="opacity-25" 
+                  cx="12" 
+                  cy="12" 
+                  r="10" 
+                  stroke="currentColor" 
+                  strokeWidth="4"
+                />
+                <path 
+                  className="opacity-75" 
+                  fill="currentColor" 
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                />
+              </svg>
+              Uploading & Analyzing...
+            </>
+          ) : (
+            'Add to dashboard'
+          )}
         </button>
       </div>
 

@@ -6,6 +6,7 @@ export interface DocumentFile {
 export interface ApplicantDocument {
     name: string;
     url: string;
+    confidenceScore: number; // 0-1 score indicating confidence the document is authentic (not tampered)
 }
 
 export interface FraudCheck {

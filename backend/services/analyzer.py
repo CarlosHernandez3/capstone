@@ -1,20 +1,38 @@
-import uuid
-from datetime import date
+from typing import List, Dict, Any
 
-from services.storage import save_new_applicant
-
-async def analyze_files(files):
-    # For now: simple placeholder logic (MVP)
-    file_names = [file.filename for file in files]
-
-    result = {
-        "id": str(uuid.uuid4()),
-        "name": "Unknown",
-        "applicationDate": str(date.today()),
+async def analyze_applicant_documents(
+    applicant_name: str,
+    applicant_id: str,
+    file_data: List[Dict[str, Any]]
+) -> Dict[str, Any]:
+    """
+    TODO: Implement your analysis using:
+    - agents/narrative_agent.py
+    - models/best_xgb_model.joblib
+    - Your OCR notebooks
+    
+    Args:
+        applicant_name: Name of applicant
+        applicant_id: Unique ID
+        file_data: List with filename, content, s3_key, s3_url
+        
+    Returns:
+        {
+            "riskScore": 0.0-1.0,
+            "summary": "AI narrative",
+            "fraudChecks": [...]
+        }
+    """
+    
+    # Placeholder - replace with your implementation
+    return {
         "riskScore": 0.5,
-        "summary": "No readable text found. (MVP)",
-        "documents": [{"name": name, "url": None} for name in file_names],
+        "summary": f"Analysis pending for {applicant_name}. {len(file_data)} documents uploaded.",
+        "fraudChecks": [
+            {
+                "label": "Documents Uploaded",
+                "status": "pass",
+                "details": f"{len(file_data)} files uploaded successfully"
+            }
+        ]
     }
-
-    save_new_applicant(result)
-    return result

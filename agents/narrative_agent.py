@@ -73,6 +73,7 @@ class NarrativeAgent:
 
     def generate_report(self, application: Union[Dict[str, Any], str]) -> str:
         """Generates a concise fraud-risk report from a JSON or dict payload."""
+        
         if isinstance(application, str):
             try:
                 json.loads(application)

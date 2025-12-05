@@ -1,16 +1,46 @@
 import json
 import os
+from google.cloud import storage
 
-DATA_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "applicants.json")
+# Initialize GCS client
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.join(os.path.dirname(__file__), '..', 'gcp-credentials.json')
+storage_client = storage.Client(project='turing-agent-358210')
+
+BUCKET_NAME = 'applicant-documents-pdf'
+METADATA_KEY = 'applicant-metadata/applicants.json'
 
 def load_applicants():
-    if not os.path.exists(DATA_PATH):
+    """Load all applicants from GCS"""
+    try:
+        bucket = storage_client.bucket(BUCKET_NAME)
+        blob = bucket.blob(METADATA_KEY)
+        
+        if blob.exists():
+            content = blob.download_as_text()
+            return json.loads(content)
+        else:
+            return []
+    except Exception as e:
+        print(f"Error loading from GCS: {str(e)}")
         return []
-    with open(DATA_PATH, "r") as f:
-        return json.load(f)
 
 def save_new_applicant(applicant):
+    """Save new applicant to GCS"""
     applicants = load_applicants()
     applicants.append(applicant)
-    with open(DATA_PATH, "w") as f:
-        json.dump(applicants, f, indent=4)
+    
+    try:
+        bucket = storage_client.bucket(BUCKET_NAME)
+        blob = bucket.blob(METADATA_KEY)
+        blob.upload_from_string(
+            json.dumps(applicants, indent=2),
+            content_type='application/json'
+        )
+        print(f"Saved applicant {applicant['id']} to GCS")
+    except Exception as e:
+        print(f"Error saving to GCS: {str(e)}")
+
+def get_applicant_count():
+    """Get the current count of applicants"""
+    applicants = load_applicants()
+    return len(applicants)
