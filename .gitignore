@@ -145,8 +145,10 @@ env.bak/
 venv.bak/
 
 # Ignore the data folder
-!data/.gitkeep
+#!data/.gitkeep
 
+data/gemini_llm_kpi_anymatch_extracted.csv
+data/validated_applicant_fields.csv
 # Spyder project settings
 .spyderproject
 .spyproject
