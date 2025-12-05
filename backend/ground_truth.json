@@ -1,0 +1,93 @@
+{
+  "applicant_1": {
+    "54673": {
+      "document_type": "ID",
+      "real": true
+    },
+    "87311": {
+      "document_type": "paystub",
+      "real": false
+    },
+    "22389": {
+      "document_type": "bank_statement",
+      "real": true
+    },
+    "99887": {
+      "document_type": "W2",
+      "real": false
+    },
+    "11223": {
+      "document_type": "SSN",
+      "real": true
+    }
+  },
+
+  "applicant_2": {
+    "33451": {
+      "document_type": "ID",
+      "real": true
+    },
+    "70992": {
+      "document_type": "paystub",
+      "real": true
+    },
+    "19873": {
+      "document_type": "bank_statement",
+      "real": true
+    },
+    "66281": {
+      "document_type": "W2",
+      "real": true
+    },
+    "45009": {
+      "document_type": "SSN",
+      "real": true
+    }
+  },
+
+  "applicant_3": {
+    "99112": {
+      "document_type": "ID",
+      "real": false
+    },
+    "44520": {
+      "document_type": "paystub",
+      "real": true
+    },
+    "78110": {
+      "document_type": "bank_statement",
+      "real": false
+    },
+    "55227": {
+      "document_type": "W2",
+      "real": false
+    },
+    "33718": {
+      "document_type": "SSN",
+      "real": true
+    }
+  },
+
+  "applicant_4": {
+    "11987": {
+      "document_type": "ID",
+      "real": true
+    },
+    "88014": {
+      "document_type": "paystub",
+      "real": false
+    },
+    "44762": {
+      "document_type": "bank_statement",
+      "real": false
+    },
+    "22554": {
+      "document_type": "W2",
+      "real": true
+    },
+    "66345": {
+      "document_type": "SSN",
+      "real": false
+    }
+  }
+}
