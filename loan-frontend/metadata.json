@@ -1,0 +1,5 @@
+{
+  "name": "Loan Document Analyzer",
+  "description": "An AI-powered tool to upload and analyze loan applications against supporting financial documents like bank statements and pay stubs, providing a clear verification summary.",
+  "requestFramePermissions": []
+}

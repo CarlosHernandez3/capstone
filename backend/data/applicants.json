@@ -1,0 +1,15 @@
+[
+    {
+        "id": "c1219e7b-d556-47c7-a536-61e1288b3875",
+        "name": "Unknown",
+        "applicationDate": "2025-11-13",
+        "riskScore": 0.5,
+        "summary": "No readable text found. (MVP)",
+        "documents": [
+            {
+                "name": "test.pdf",
+                "url": null
+            }
+        ]
+    }
+]
