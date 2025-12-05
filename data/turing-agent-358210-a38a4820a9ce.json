@@ -1,0 +1,15 @@
+{
+  "type": "service_account",
+  "project_id": "turing-agent-358210",
+  "private_key_id": "a38a4820a9ce2ae3ee41ef0c926da5e29ad8238d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDvPAgBMpy3xyXo\nsxM7PSNOI8J141wRFXLCOotASHB1VfLZYfierJx1N8oMaG7Y0e+R9jBx3q9wxMrj\nXUw4o+MrsCAcFXgvYO9/FawZ4uFgjZwqm9HfTn/OCXz9E0GcK1l9nG1LKeRw0h8O\ncKWnBYeH/NwLjtcLbZyXOuYVv0Q4KGiual4/B6zH7fLz30EHhheIyTLqJt887sAi\nY4IeFL8cZbAde6kwv1wbCIbomPThYCZUuqfUL0KtbVHV3rUM+ZrOmKIGtEs+xmAL\na+RbCvKD7Ozjn8siSkcjJm1C+J6SZ7Q+PDY5TW2BKvxzHvRvUFWLtGCF4CscD9/O\nkO6sbvpJAgMBAAECggEACuEbqr+cJDi4lEd91WYnXTNVHDqrAiqL3cypw9JHgvPV\n/RAZLVDDi1/DyXf/qnk0QDAGQ0y8L7r9+wRQJgyV6nOyUh9L0uPBSxyM3LSA8/zH\nSvdrvjr5/EBZixdoFsEF6ydvn55tFrsHfIb05uPie6BX0BK+hsovon+kMlL7YuOl\nCK6t9ljv93zjTgwZf6rzsAr+7BdG2GBNzi/FcRyFneVBhUV2UGWOkZ88kqnG/jk3\nXX9qqdCNHwiuQwx306MvPMRFxe9kh7kGg0ZCJNACpsXTVqLE3Cm+9N7Judbt4Sms\nAHaUV+brLbYPXYbP2n6nwc2UgvHEQfxBrcUv0Y7N8QKBgQD9OVwr99KxFPI7Tqqo\nCcUD2fowlUkk4rj9dnz5CchSYveR0hCBNqU3GbYZsv1UEbSdkjEew1xI/cQowmnU\nAV4rhoIAzA1250c/wF87/0C5EVL4lxZRl8BQ5Pf5nPZQn4QHIbrCKXfATnPYNy3A\n3+Y+9QeKvyx9K0be4L0Njr/53QKBgQDx22lORy/cFNTwSQhQZmxaO569AXGPqby+\n0j8nvXXZoj/Bey2wnyYdoZ8WNHYQTgF3Sk0M7O37H/HGWNOphL+xmQuAtrqpAu1A\n9x6hn7iEvX2gp0qrpzvJLiQJI+fQtDHilafWSTg4snOXfENtzN9fXFnjrMtl7GOP\nZndnets5XQKBgBCaVzHG0PitX+iFkujroxBKlX3j++TAPNLZlv4ZJxpHxOW5uT1P\noOuI8wiiVLvTYV1HfZL/yig7A0aM4LV21X7TFekJeASIy4Ihkdz0MoEv4pnMBjmZ\nUpG7QYsLQJcurlBtZLpgT6q7Ohs+GvDffVA5bqIpQLiAQuhQIfUmm+29AoGAVqhh\nMPT8xwSHz5i7a+NnC2W1WM99mxYcVNsMWfbelR43beHu2wwLIi7Yy6H8c5cfm1h6\nBxmVo5csj/8fx+uSq9XEc1gFxa0QyWhCB3MtMBKdQsTuUlbXaxwnOUcuNm96OE+b\nFYKirF30YODbYCo6FvcGFjfBoUFz4tu6CM/SYNkCgYBS7SjC/n0BXerMZI+ZczHz\n25wg+vX+gvcBDYn8J4Et2ELtAyDYcAhrsf8gny6L4xk7oyION+5ukkKSn2d3s3ae\nQaUFaooHuDzqptlMMq/8ky9/yoEi8dK1NFFjy1ptk5c1qjTqGPMW0IWn7w2dUd7M\nECh5het+zOdPb/jfokcAKw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "capstone-ocr@turing-agent-358210.iam.gserviceaccount.com",
+  "client_id": "104543731226488771484",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/capstone-ocr%40turing-agent-358210.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
+
+

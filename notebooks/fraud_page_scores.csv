@@ -1,0 +1,14 @@
+image_path,applicant_id,doc_id,page_idx,fraud_score
+data\images\applicant_1\Sample 4_page0.png,applicant_1,Sample 4.pdf,0,0.5733668804168701
+data\images\applicant_1\Sample 4_page1.png,applicant_1,Sample 4.pdf,1,0.5285648703575134
+data\images\applicant_1\Sample 4_page2.png,applicant_1,Sample 4.pdf,2,0.5303142666816711
+data\images\applicant_1\Sample 4_page3.png,applicant_1,Sample 4.pdf,3,0.5152683258056641
+data\images\applicant_2\Sample 4_page0.png,applicant_2,Sample 4.pdf,0,0.5733608603477478
+data\images\applicant_2\Sample 4_page1.png,applicant_2,Sample 4.pdf,1,0.5285302996635437
+data\images\applicant_2\Sample 4_page2.png,applicant_2,Sample 4.pdf,2,0.5303142666816711
+data\images\applicant_2\Sample 4_page3.png,applicant_2,Sample 4.pdf,3,0.5152683258056641
+data\images\applicant_3\Sample 4_page0.png,applicant_3,Sample 4.pdf,0,0.5733608603477478
+data\images\applicant_3\Sample 4_page1.png,applicant_3,Sample 4.pdf,1,0.5285302996635437
+data\images\applicant_3\Sample 4_page2.png,applicant_3,Sample 4.pdf,2,0.5303142666816711
+data\images\applicant_3\Sample 4_page3.png,applicant_3,Sample 4.pdf,3,0.5152683258056641
+data\images\applicant_4\Question 17_page0.png,applicant_4,Question 17.pdf,0,0.4900757670402527

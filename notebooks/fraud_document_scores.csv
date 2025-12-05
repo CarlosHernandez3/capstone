@@ -1,0 +1,5 @@
+applicant_id,doc_id,fraud_score
+applicant_1,Sample 4.pdf,0.5733668804168701
+applicant_2,Sample 4.pdf,0.5733608603477478
+applicant_3,Sample 4.pdf,0.5733608603477478
+applicant_4,Question 17.pdf,0.4900757670402527
