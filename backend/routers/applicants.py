@@ -92,8 +92,7 @@ async def create_applicant(
             
             uploaded_documents.append({
                 "name": file.filename,
-                "url": url,
-                "confidenceScore": 0  # Placeholder: will be updated by AI analysis
+                "url": url
             })
             
             file_data_for_analysis.append({
@@ -126,38 +125,60 @@ async def create_applicant(
                 
                 # Update uploaded documents with per-document analysis results
                 for uploaded_doc in uploaded_documents:
-                    # Find matching document in analysis results
+                    # Find matching document in analysis results by name
                     matching_analysis = next(
-                        (ad for ad in analyzed_docs if ad.get("filename") == uploaded_doc["name"]),
+                        (ad for ad in analyzed_docs if ad.get("name") == uploaded_doc["name"]),
                         None
                     )
                     
                     if matching_analysis:
-                        uploaded_doc["confidenceScore"] = matching_analysis.get("confidenceScore", 0)
-                        uploaded_doc["documentInGovernmentWebsite"] = matching_analysis.get("documentInGovernmentWebsite", 0)
-                        uploaded_doc["ocrMatchesApplication"] = matching_analysis.get("ocrMatchesApplication", 0)
+                        # New structure fields
+                        uploaded_doc["documentType"] = matching_analysis.get("documentType", "unknown")
+                        uploaded_doc["isAuthentic"] = matching_analysis.get("isAuthentic", 0)
+                        uploaded_doc["isManipulated"] = matching_analysis.get("isManipulated", 0)
+                        uploaded_doc["governmentVerified"] = matching_analysis.get("governmentVerified", 0)
+                        uploaded_doc["ocrMatches"] = matching_analysis.get("ocrMatches", 0)
                     else:
                         # Fallback if document not in analysis results
-                        uploaded_doc["confidenceScore"] = 0
-                        uploaded_doc["documentInGovernmentWebsite"] = 0
-                        uploaded_doc["ocrMatchesApplication"] = 0
+                        uploaded_doc["documentType"] = "unknown"
+                        uploaded_doc["isAuthentic"] = 0
+                        uploaded_doc["isManipulated"] = 0
+                        uploaded_doc["governmentVerified"] = 0
+                        uploaded_doc["ocrMatches"] = 0
                 
                 # Build fraud checks from document validation results
                 fraud_checks = []
                 for doc in uploaded_documents:
                     doc_name = doc["name"]
-                    fraud_checks.extend([
-                        {
-                            "label": f"{doc_name} - Government Verification",
-                            "status": "pass" if doc.get("documentInGovernmentWebsite") == 1 else "fail",
-                            "details": f"Document found in government records" if doc.get("documentInGovernmentWebsite") == 1 else f"Document not verified in government database"
-                        },
-                        {
-                            "label": f"{doc_name} - Data Match",
-                            "status": "pass" if doc.get("ocrMatchesApplication") == 1 else "fail",
-                            "details": f"OCR data matches application" if doc.get("ocrMatchesApplication") == 1 else f"Discrepancy between OCR and application data"
-                        }
-                    ])
+                    doc_type = doc.get("documentType", "Document")
+                    
+                    # Authenticity check
+                    fraud_checks.append({
+                        "label": f"{doc_name} - Authenticity",
+                        "status": "pass" if doc.get("isAuthentic") == 1 else "fail",
+                        "details": f"{doc_type} verified as authentic" if doc.get("isAuthentic") == 1 else f"{doc_type} authentication failed"
+                    })
+                    
+                    # Manipulation check
+                    fraud_checks.append({
+                        "label": f"{doc_name} - Manipulation Check",
+                        "status": "fail" if doc.get("isManipulated") == 1 else "pass",
+                        "details": f"Document shows signs of manipulation" if doc.get("isManipulated") == 1 else f"No manipulation detected"
+                    })
+                    
+                    # Government verification
+                    fraud_checks.append({
+                        "label": f"{doc_name} - Government Verification",
+                        "status": "pass" if doc.get("governmentVerified") == 1 else "fail",
+                        "details": f"Document found in government records" if doc.get("governmentVerified") == 1 else f"Document not verified in government database"
+                    })
+                    
+                    # OCR match
+                    fraud_checks.append({
+                        "label": f"{doc_name} - Data Match",
+                        "status": "pass" if doc.get("ocrMatches") == 1 else "fail",
+                        "details": f"OCR data matches application" if doc.get("ocrMatches") == 1 else f"Discrepancy between OCR and application data"
+                    })
             else:
                 raise Exception(f"API returned status {response.status_code}: {response.text}")
         
@@ -171,9 +192,11 @@ async def create_applicant(
         
         # Set default values for all documents
         for doc in uploaded_documents:
-            doc["confidenceScore"] = 0
-            doc["documentInGovernmentWebsite"] = 0
-            doc["ocrMatchesApplication"] = 0
+            doc["documentType"] = "unknown"
+            doc["isAuthentic"] = 0
+            doc["isManipulated"] = 0
+            doc["governmentVerified"] = 0
+            doc["ocrMatches"] = 0
         
         fraud_checks = [
             {

@@ -6,7 +6,7 @@ from google.cloud import storage
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.join(os.path.dirname(__file__), '..', 'gcp-credentials.json')
 storage_client = storage.Client(project='turing-agent-358210')
 
-BUCKET_NAME = 'applicant-documents-pdf'
+BUCKET_NAME = 'capstone-ii-applicant-documents'
 METADATA_KEY = 'applicant-metadata/applicants.json'
 
 def load_applicants():
