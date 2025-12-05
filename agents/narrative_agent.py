@@ -68,8 +68,12 @@ class NarrativeAgent:
         if not api_key:
             raise RuntimeError("GEMINI_API_KEY not set. Add it to your environment or .env")
 
-        # OpenAI v1 client
-        self._client = OpenAI(api_key=api_key)
+        # OpenAI v1 client pointed at Gemini's OpenAI-compatible endpoint
+        self._client = OpenAI(
+            api_key=api_key,
+            base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+        )
+
 
     def generate_report(self, application: Union[Dict[str, Any], str]) -> str:
         """Generates a concise fraud-risk report from a JSON or dict payload."""
