@@ -6,35 +6,73 @@ export const mockApplicants: Applicant[] = [
     name: 'John Doe',
     applicationDate: '2024-07-15',
     riskScore: 0.25, // low risk
-    summary: 'John Doe is a strong candidate with a stable income and a solid credit history. All provided documents align with the application details. The calculated income from pay stubs and bank statements is consistent with the amount stated on the loan application. No red flags were detected in the financial documents. Low risk profile.',
+    summary:
+      'John Doe is a strong candidate with a stable income and consistent documentation. No major risk factors were detected across the uploaded documents.',
     documents: [
       { name: 'Loan_Application_JDoe.pdf', url: '#' },
       { name: 'Bank_Statement_May24.pdf', url: '#' },
       { name: 'Paystub_May24.pdf', url: '#' },
     ],
+    fraudChecks: [
+      { label: 'SSN matches IRS records', status: 'pass' },
+      { label: 'Income consistent across documents', status: 'pass' },
+      { label: 'Employer verified in business registry', status: 'pass' },
+      { label: 'Address consistent across documents', status: 'pass' },
+    ],
   },
   {
     id: '2',
     name: 'Jane Smith',
-    applicationDate: '2024-07-14',
+    applicationDate: '2024-07-12',
     riskScore: 0.82, // high risk
-    summary: 'Jane Smith presents a high-risk profile. There are significant discrepancies between the income stated on the application and the amounts shown on her bank statements. Furthermore, there is evidence of multiple recent credit inquiries and a high debt-to-income ratio. Several unusual, large cash deposits are unexplained. Caution is strongly advised.',
+    summary:
+      'Multiple inconsistencies were found between the stated income and the values observed in bank statements and paystubs. Applicant is considered high risk and requires manual review.',
     documents: [
-      { name: 'JSmith_Application.pdf', url: '#' },
-      { name: 'BankStatement_Q2.pdf', url: '#' },
+      { name: 'Loan_Application_JaneSmith.pdf', url: '#' },
+      { name: 'Bank_Statement_May24.pdf', url: '#' },
+      { name: 'Paystub_May15.pdf', url: '#' },
+    ],
+    fraudChecks: [
+      { label: 'SSN matches IRS records', status: 'pass' },
+      {
+        label: 'Income consistent across documents',
+        status: 'fail',
+        details: 'Reported monthly income is significantly higher than average deposits.',
+      },
+      {
+        label: 'Employer verified in business registry',
+        status: 'warning',
+        details: 'Employer has limited public records; flagged for additional verification.',
+      },
+      {
+        label: 'Address consistent across documents',
+        status: 'fail',
+        details: 'Bank statement address does not match the loan application address.',
+      },
     ],
   },
   {
     id: '3',
     name: 'Sam Wilson',
-    applicationDate: '2024-07-12',
+    applicationDate: '2024-07-10',
     riskScore: 0.55, // medium risk
-    summary: 'Sam Wilson is a moderate-risk applicant. Employment and income are verified, but the applicant has a short credit history and a recent job change. The bank statements show a healthy cash flow but also a few instances of overdrafts in the past six months. Further documentation regarding employment stability might be required.',
+    summary:
+      'Sam Wilson shows moderate risk. Most information is consistent but there are minor anomalies that should be reviewed before final approval.',
     documents: [
       { name: 'SW_LoanApp.pdf', url: '#' },
       { name: 'Bank_Statement_07_2024.pdf', url: '#' },
       { name: 'Paystub_July_First.pdf', url: '#' },
       { name: 'Employment_Offer_Letter.pdf', url: '#' },
+    ],
+    fraudChecks: [
+      { label: 'SSN matches IRS records', status: 'pass' },
+      {
+        label: 'Income consistent across documents',
+        status: 'warning',
+        details: 'One recent paystub shows a lower amount than the stated monthly income.',
+      },
+      { label: 'Employer verified in business registry', status: 'pass' },
+      { label: 'Address consistent across documents', status: 'pass' },
     ],
   },
 ];
