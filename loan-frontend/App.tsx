@@ -6,10 +6,11 @@ import { mockApplicants } from './data/mockData';
 import { Applicant } from './types';
 
 const App: React.FC = () => {
+  const [applicants, setApplicants] = useState<Applicant[]>(mockApplicants);
   const [selectedApplicant, setSelectedApplicant] = useState<Applicant | null>(null);
 
   const handleSelectApplicant = (id: string) => {
-    const applicant = mockApplicants.find(a => a.id === id);
+    const applicant = applicants.find(a => a.id === id);
     if (applicant) {
       setSelectedApplicant(applicant);
     }
@@ -19,6 +20,10 @@ const App: React.FC = () => {
     setSelectedApplicant(null);
   };
 
+  const handleAddApplicant = (newApplicant: Applicant) => {
+    setApplicants(prev => [...prev, newApplicant]);
+  };
+
   return (
     <div className="min-h-screen bg-neutral-100 font-sans text-neutral-800">
       <Header />
@@ -26,7 +31,11 @@ const App: React.FC = () => {
         {selectedApplicant ? (
           <ApplicantDashboard applicant={selectedApplicant} onBack={handleBackToList} />
         ) : (
-          <ApplicantList applicants={mockApplicants} onSelectApplicant={handleSelectApplicant} />
+          <ApplicantList
+            applicants={applicants}
+            onSelectApplicant={handleSelectApplicant}
+            onAddApplicant={handleAddApplicant}
+          />
         )}
       </main>
     </div>
